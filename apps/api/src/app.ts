@@ -6,6 +6,7 @@ import { dbMiddleware } from './middleware/db.js'
 import { postingsRouter } from './routes/postings.js'
 import { usersRouter } from './routes/users.js'
 import { clubMembersRouter } from './routes/club-members.js'
+import { verificationRouter } from './routes/verification.js'
 
 const app = new Hono<{
   Bindings: { DATABASE_URL: string; NEON_AUTH_BASE_URL: string; WEB_ORIGIN: string }
@@ -42,6 +43,10 @@ app.route('/api/users', usersRouter)
 
 // Club admin: membership management for appointed volunteers
 app.route('/api/clubs/members', clubMembersRouter)
+
+// Automatic DK24 student verification flow
+app.route('/api/verifications', verificationRouter)
+app.route('/api/student/verification', verificationRouter)
 
 export { app }
 export type AppType = typeof app
